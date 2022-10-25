@@ -1,4 +1,8 @@
 import express, { Request, Response } from "express";
+import {
+  loginUserHandler,
+  registerUserHandler,
+} from "../controllers/auth.controller";
 
 const router = express.Router();
 
@@ -9,4 +13,6 @@ router.get("/", (req: Request, res: Response) => {
   });
 });
 
+router.post("/register", registerUserHandler);
+router.post("/login", loginUserHandler);
 export default router;

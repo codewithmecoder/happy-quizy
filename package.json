@@ -15,12 +15,15 @@
     "dev": "ts-node-dev --respawn --transpile-only src/app.ts",
     "prod": "tsc && node build/src/app.js",
     "seeding": "ts-node-dev --respawn --transpileOnly prisma/seed.ts",
-    "migrate": "prisma migrate dev --name"
+    "prisma:migrate": "prisma migrate dev --name",
+    "prisma:generate": "prisma generate"
   },
   "devDependencies": {
+    "@types/bcrypt": "^5.0.0",
     "@types/cors": "^2.8.12",
     "@types/express": "^4.17.14",
     "@types/jest": "^29.1.2",
+    "@types/jsonwebtoken": "^8.5.9",
     "@types/node": "^18.8.3",
     "@types/supertest": "^2.0.12",
     "jest": "^29.1.2",
@@ -34,9 +37,11 @@
   },
   "dependencies": {
     "@prisma/client": "^4.5.0",
+    "bcrypt": "^5.1.0",
     "cors": "^2.8.5",
     "dayjs": "^1.11.5",
     "dotenv": "^16.0.3",
-    "express": "^4.18.2"
+    "express": "^4.18.2",
+    "jsonwebtoken": "^8.5.1"
   }
 }

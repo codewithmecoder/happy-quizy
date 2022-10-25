@@ -1,0 +1,105 @@
+import { CookieOptions, Request, Response } from "express";
+// import axios from "axios";
+import { loginUser, registerUser } from "../services/auth.service";
+import { signJwt } from "../utils/jwt.util";
+import { Prisma, User } from "@prisma/client";
+import { UserloginDto } from "../DTOS/users/userLogin.dto";
+import { UserDto } from "../DTOS/users/user.dto";
+import { BaseResponse } from "../DTOS/baseResponse.dto";
+
+const accessTokenCookieOptions: CookieOptions = {
+  maxAge: 900000, //15 mins
+  httpOnly: true,
+  domain: "localhost",
+  path: "/",
+  sameSite: "lax",
+  secure: false,
+};
+const refreshTokenCookieOptions: CookieOptions = {
+  ...accessTokenCookieOptions,
+  maxAge: 3.154e10, //1 year
+};
+
+export async function registerUserHandler(
+  req: Request<{}, {}, Prisma.UserCreateInput>,
+  res: Response<User>
+) {
+  try {
+    const user = await registerUser(req.body);
+    return res.status(201).send(user);
+  } catch (e: any) {
+    res.status(409).send(e.message);
+  }
+}
+
+export async function loginUserHandler(
+  req: Request<{}, {}, UserloginDto>,
+  res: Response<BaseResponse<object>>
+) {
+  const { password, username } = req.body;
+  const _user = await loginUser(username, password);
+  if (!_user) {
+    return res
+      .status(401)
+      .send({ success: false, data: { message: "Invalid email or password" } });
+  }
+  // create an access token
+  const accessToken = signJwt(
+    {
+      _user,
+    },
+    {
+      expiresIn: process.env.ACCESSTOKENTIMETOLIVE, //config.get("accessTokenTtl"), // 15m
+    }
+  );
+  // create a refresh token
+
+  const refreshToken = signJwt(
+    {
+      _user,
+    },
+    {
+      expiresIn: process.env.REFRESHTOKENTIMETOLIVE, // 1y
+    }
+  );
+
+  // return access & refresh token
+  res.cookie("accessToken", accessToken, accessTokenCookieOptions);
+  res.cookie("resfreshToken", refreshToken, refreshTokenCookieOptions);
+  res.status(200).send({
+    success: true,
+    data: {
+      user: {
+        createdAt: _user.createdAt,
+        displayName: _user.displayName,
+        email: _user.email,
+        id: _user.id,
+        phoneNumber: _user.phoneNumber,
+        photo: _user.photo,
+        updatedAt: _user.updatedAt,
+        username: _user.username,
+      } as UserDto,
+      accessToken,
+      refreshToken,
+    },
+  });
+}
+
+// export async function getUserSessionHandler(req: Request, res: Response) {
+//   const userId = res.locals.user._id;
+//   const session = await findSession({ user: userId, valid: true });
+//   return res.send(session);
+// }
+
+// export async function deleteSessionHandler(
+//   req: Request,
+//   res: Response,
+//   next: NextFunction
+// ) {
+//   const sessionId = res.locals.user.session;
+//   await updateSession({ _id: sessionId }, { valid: false });
+//   return res.send({
+//     accessToken: null,
+//     refreshToken: null,
+//   });
+// }
