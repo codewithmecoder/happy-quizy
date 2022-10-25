@@ -6,13 +6,6 @@ import {
 
 const router = express.Router();
 
-router.get("/", (req: Request, res: Response) => {
-  res.status(200).json({
-    success: true,
-    data: { message: "this route for authentication" },
-  });
-});
-
 router.post("/register", registerUserHandler);
 router.post("/login", loginUserHandler);
 export default router;

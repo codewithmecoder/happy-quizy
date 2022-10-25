@@ -1,12 +1,9 @@
 import express, { Request, Response } from "express";
+import { getCurrentUserHandler } from "../controllers/user.controller";
+import { requireUser } from "../middlewares/requireUser.middleware";
 
 const router = express.Router();
 
-router.get("/", (req: Request, res: Response) => {
-  res.status(200).json({
-    success: true,
-    data: { message: "this is route for getting all the users" },
-  });
-});
+router.get("/", requireUser, getCurrentUserHandler);
 
 export default router;

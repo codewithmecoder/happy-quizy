@@ -1,6 +1,8 @@
 import { Prisma, PrismaClient } from "@prisma/client";
+import { get } from "lodash";
 import { comparePassword, hashPassword } from "../utils/hashPassword.util";
 import { signJwt, verifyJwt } from "../utils/jwt.util";
+import log from "../utils/logger";
 
 const prismaClient = new PrismaClient();
 
@@ -31,24 +33,24 @@ export async function reIssueAccessToken({
   refreshToken: string;
 }) {
   const { decoded } = verifyJwt(refreshToken);
-  // if (!decoded || !get(decoded, "session")) return false;
+  log.info(decoded);
+  if (!decoded || !get(decoded, "id")) return false;
 
-  // const session = await SessionModel.findById(get(decoded, "session"));
-  // if (!session || !session.valid) return false;
-  // const user = await findUser({ _id: session.user });
-
-  // if (!user) return false;
-  // // create an access token
-  // const accessToken = signJwt(
-  //   {
-  //     ...user,
-  //     session: session._id,
-  //   },
-  //   {
-  //     expiresIn: config.get("accessTokenTtl"), // 15m
-  //   }
-  // );
-  // return accessToken;
+  const user = await prismaClient.user.findFirst({
+    where: { id: get(decoded, "id") },
+  });
+  if (!user) return false;
+  const payload = {
+    id: user.id,
+    displayName: user.displayName,
+    username: user.username,
+    photo: user.photo,
+  };
+  // create an access token
+  const accessToken = signJwt(payload, {
+    expiresIn: process.env.ACCESSTOKENTIMETOLIVE, // 15m
+  });
+  return accessToken;
 }
 
 async function validatePassword({
