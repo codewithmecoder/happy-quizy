@@ -1,17 +1,16 @@
 import { NextFunction, Request, Response } from "express";
 import { BaseResponse } from "../DTOS/baseResponse.dto";
-import log from "../utils/logger";
 
-export const requireUser = (
+export const requireAdmin = (
   req: Request,
   res: Response<BaseResponse<{ message: string }>>,
   next: NextFunction
 ) => {
   const user = res.locals.user;
-  if (!user) {
+  if (!user || !user.isAdmin) {
     return res.json({
       success: false,
-      data: { message: "please login to access this action!" },
+      data: { message: "Admin access only!" },
     });
   }
 

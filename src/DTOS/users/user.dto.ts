@@ -5,6 +5,7 @@ export interface UserDto {
   email: string;
   phoneNumber: string | null;
   photo: Buffer | null;
+  isAdmin: boolean;
   createdAt: Date;
   updatedAt: Date;
 }

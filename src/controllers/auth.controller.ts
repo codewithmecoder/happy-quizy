@@ -71,6 +71,7 @@ export async function loginUserHandler(
     photo: _user.photo,
     updatedAt: _user.updatedAt,
     username: _user.username,
+    isAdmin: _user.isAdmin,
   } as UserDto;
   res.status(200).send({
     success: true,

@@ -15,7 +15,8 @@ export async function registerUser(user: Prisma.UserCreateInput) {
   } catch (error: any) {
     if (error instanceof Prisma.PrismaClientKnownRequestError) {
       if (error.code === "P2002") {
-        throw new Error("username already exsit!");
+        const fields = error.meta!["target"] as [];
+        throw new Error(`${fields.join(", ")} already exsit!`);
       }
     }
     throw new Error(error.message);
@@ -45,6 +46,7 @@ export async function reIssueAccessToken({
     displayName: user.displayName,
     username: user.username,
     photo: user.photo,
+    isAdmin: user.isAdmin,
   };
   // create an access token
   const accessToken = signJwt(payload, {

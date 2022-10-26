@@ -18,6 +18,49 @@ model User{
   phoneNumber String?
   password String
   photo Bytes?
+  isAdmin Boolean @default(false)
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+}
+
+model Question {
+  id Int @id @default(autoincrement())
+  content String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  answerQuestions AnswerQuestion[]
+  typeQuestionId Int?
+  typeQuestion TypeQuestion? @relation(fields: [typeQuestionId], references: [id])
+  scoreId Int?
+  score Score? @relation(fields: [scoreId], references: [id])
+}
+
+model TypeQuestion {
+  id Int @id @default(autoincrement())
+  type String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  answerQuestions AnswerQuestion[]
+  questions Question[]
+}
+
+model AnswerQuestion {
+  id Int @id @default(autoincrement())
+  answer String
+  iscorrect Boolean @default(false)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  typeQuestionId Int?
+  typeQuestion TypeQuestion? @relation(fields: [typeQuestionId], references: [id]) 
+  questionId Int?
+  question Question? @relation(fields: [questionId], references: [id])
+}
+
+model Score{
+  id Int @id @default(autoincrement())
+  score Decimal
+  userId Int
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  questions Question[]
 }
