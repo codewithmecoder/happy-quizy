@@ -1,7 +1,9 @@
-import { Prisma, TypeQuestion } from "@prisma/client";
+import { Prisma, Question, TypeQuestion } from "@prisma/client";
 import { Request, Response } from "express";
 import { BaseResponse } from "../DTOS/baseResponse.dto";
+import { CreateQuestion } from "../DTOS/quizs/createQuestionCommand";
 import {
+  createQuestion,
   createTypeQuestion,
   getTypeQuestions,
   updateTypeQuestion,
@@ -41,5 +43,21 @@ export const updateTypeQuestionHandler = async (
     res.json({ data, success: true });
   } catch (error: any) {
     res.json({ data: { message: error.message }, success: false });
+  }
+};
+
+// question section //
+export const createQuestionHandler = async (
+  req: Request<{}, {}, CreateQuestion>,
+  res: Response<BaseResponse<Question | { message: string }>>
+) => {
+  try {
+    const question = await createQuestion(req.body);
+    res.json({ data: question, success: true });
+  } catch (error: any) {
+    res.json({
+      data: { message: "Could not create question" },
+      success: false,
+    });
   }
 };

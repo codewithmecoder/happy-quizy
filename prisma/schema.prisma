@@ -29,10 +29,8 @@ model Question {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
   answerQuestions AnswerQuestion[]
-  typeQuestionId Int?
-  typeQuestion TypeQuestion? @relation(fields: [typeQuestionId], references: [id])
-  scoreId Int?
-  score Score? @relation(fields: [scoreId], references: [id])
+  typeQuestion TypeQuestion @relation(fields: [typeQuestionId], references: [id])
+  typeQuestionId Int
 }
 
 model TypeQuestion {
@@ -50,10 +48,10 @@ model AnswerQuestion {
   iscorrect Boolean @default(false)
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
-  typeQuestionId Int?
-  typeQuestion TypeQuestion? @relation(fields: [typeQuestionId], references: [id]) 
-  questionId Int?
-  question Question? @relation(fields: [questionId], references: [id])
+  typeQuestion TypeQuestion @relation(fields: [typeQuestionId], references: [id]) 
+  question Question @relation(fields: [questionId], references: [id])
+  questionId Int
+  typeQuestionId Int
 }
 
 model Score{
@@ -62,5 +60,13 @@ model Score{
   userId Int
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
-  questions Question[]
+}
+
+model ScoreAndQuestion{
+  id Int @id @default(autoincrement())
+  userId Int
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  scoreId Int
+  questionId Int
 }
