@@ -1,5 +1,9 @@
 {
   "compilerOptions": {
+    "declaration": true,
+    "sourceMap": true,
+    "typeRoots": ["node_modules/@types", "./typings", "node_modules/**/*.d.ts"],
+
     /* Visit https://aka.ms/tsconfig.json to read more about this file */
 
     /* Projects */
@@ -99,5 +103,7 @@
     /* Completeness */
     // "skipDefaultLibCheck": true,                      /* Skip type checking .d.ts files that are included with TypeScript. */
     "skipLibCheck": true /* Skip type checking all .d.ts files. */
-  }
+  },
+  "include": ["src/**/*.ts", "./typings/**/*.d.ts"],
+  "exclude": ["node_modules/**", "build"]
 }

@@ -1,6 +1,6 @@
 import { PrismaClient } from "@prisma/client";
 import { UserDto } from "../DTOS/users/user.dto";
-import { userToUserDto } from "../extensions/user.util.ex";
+import { userToUserDto } from "../extensions/user.ex";
 
 const prismaClient = new PrismaClient();
 export async function getFullUserByUsername(

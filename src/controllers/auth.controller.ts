@@ -1,11 +1,11 @@
 import { CookieOptions, Request, Response } from "express";
-// import axios from "axios";
 import { loginUser, registerUser } from "../services/auth.service";
 import { signJwt } from "../utils/jwt.util";
-import { Prisma, User } from "@prisma/client";
+import { Prisma } from "@prisma/client";
 import { UserloginDto } from "../DTOS/users/userLogin.dto";
 import { UserDto } from "../DTOS/users/user.dto";
 import { BaseResponse } from "../DTOS/baseResponse.dto";
+import { userToUserDto } from "../extensions/user.ex";
 
 const accessTokenCookieOptions: CookieOptions = {
   maxAge: 900000, //15 mins
@@ -22,13 +22,13 @@ const refreshTokenCookieOptions: CookieOptions = {
 
 export async function registerUserHandler(
   req: Request<{}, {}, Prisma.UserCreateInput>,
-  res: Response<User>
+  res: Response<BaseResponse<UserDto | { message: string }>>
 ) {
   try {
     const user = await registerUser(req.body);
-    return res.status(201).send(user);
+    return res.status(201).send({ data: userToUserDto(user)!, success: true });
   } catch (e: any) {
-    res.status(409).send(e.message);
+    res.status(409).send({ data: { message: e.message }, success: false });
   }
 }
 

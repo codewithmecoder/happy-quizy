@@ -38,7 +38,6 @@ model TypeQuestion {
   type String
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
-  answerQuestions AnswerQuestion[]
   questions Question[]
 }
 
@@ -48,7 +47,6 @@ model AnswerQuestion {
   iscorrect Boolean @default(false)
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
-  typeQuestion TypeQuestion @relation(fields: [typeQuestionId], references: [id]) 
   question Question @relation(fields: [questionId], references: [id])
   questionId Int
   typeQuestionId Int
