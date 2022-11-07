@@ -2,7 +2,6 @@ import { Prisma, PrismaClient } from "@prisma/client";
 import { get } from "lodash";
 import { comparePassword, hashPassword } from "../utils/hashPassword.util";
 import { signJwt, verifyJwt } from "../utils/jwt.util";
-import log from "../utils/logger";
 
 const prismaClient = new PrismaClient();
 
@@ -34,7 +33,6 @@ export async function reIssueAccessToken({
   refreshToken: string;
 }) {
   const { decoded } = verifyJwt(refreshToken);
-  log.info(decoded);
   if (!decoded || !get(decoded, "id")) return false;
 
   const user = await prismaClient.user.findFirst({

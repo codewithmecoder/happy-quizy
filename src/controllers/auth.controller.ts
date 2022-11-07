@@ -3,9 +3,10 @@ import { loginUser, registerUser } from "../services/auth.service";
 import { signJwt } from "../utils/jwt.util";
 import { Prisma } from "@prisma/client";
 import { UserloginDto } from "../DTOS/users/userLogin.dto";
-import { UserDto } from "../DTOS/users/user.dto";
+import { LoginReturn, UserDto } from "../DTOS/users/user.dto";
 import { BaseResponse } from "../DTOS/baseResponse.dto";
 import { userToUserDto } from "../extensions/user.ex";
+import { MessageResponse } from "../DTOS/messageResponse.dto";
 
 const accessTokenCookieOptions: CookieOptions = {
   maxAge: 900000, //15 mins
@@ -22,7 +23,7 @@ const refreshTokenCookieOptions: CookieOptions = {
 
 export async function registerUserHandler(
   req: Request<{}, {}, Prisma.UserCreateInput>,
-  res: Response<BaseResponse<UserDto | { message: string }>>
+  res: Response<BaseResponse<UserDto | MessageResponse>>
 ) {
   try {
     const user = await registerUser(req.body);
@@ -34,7 +35,7 @@ export async function registerUserHandler(
 
 export async function loginUserHandler(
   req: Request<{}, {}, UserloginDto>,
-  res: Response<BaseResponse<object>>
+  res: Response<BaseResponse<LoginReturn | MessageResponse>>
 ) {
   const { password, username } = req.body;
   const _user = await loginUser(username, password);

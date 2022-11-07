@@ -9,3 +9,9 @@ export interface UserDto {
   createdAt: Date;
   updatedAt: Date;
 }
+
+export type LoginReturn = {
+  user: UserDto;
+  accessToken: string;
+  refreshToken: string;
+};
