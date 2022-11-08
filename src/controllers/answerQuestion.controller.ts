@@ -6,6 +6,7 @@ import {
   createAnswers,
   deleteAnswer,
   getAnswerById,
+  getAnswers,
   getAnswersByType,
   updateAnswers,
 } from "../services/answerQuestion.service";
@@ -26,7 +27,7 @@ export const createAnswersHandler = async (
 };
 
 export const updateAnswersHandler = async (
-  req: Request<{}, {}, Prisma.AnswerQuestionUncheckedUpdateManyInput>,
+  req: Request<{}, {}, Prisma.AnswerQuestionUncheckedUpdateManyInput[]>,
   res: Response<BaseResponse<MessageResponse>>
 ) => {
   try {
@@ -61,7 +62,7 @@ export const deleteAnswerHandler = async (
   }
 };
 
-export const getQuestionByIdHandler = async (
+export const getAnswerQuestionByIdHandler = async (
   req: Request,
   res: Response<BaseResponse<AnswerQuestion | MessageResponse>>
 ) => {
@@ -84,10 +85,10 @@ export const getQuestionByIdHandler = async (
   }
 };
 
-export const getQuestionByTypeHandler = async (
+export async function getAnswerQuestionByQuestionHandler(
   req: Request,
   res: Response<BaseResponse<AnswerQuestion[] | MessageResponse>>
-) => {
+) {
   try {
     const { id } = req.params;
     const answers = await getAnswersByType(parseInt(id));
@@ -101,4 +102,23 @@ export const getQuestionByTypeHandler = async (
       success: false,
     });
   }
-};
+}
+
+export async function getAnswerQuestionsHandler(
+  req: Request,
+  res: Response<BaseResponse<AnswerQuestion[] | MessageResponse>>
+) {
+  try {
+    const answers = await getAnswers();
+    res.status(200).send({
+      data: answers,
+      success: true,
+    });
+  } catch (error: any) {
+    res.status(500).send({
+      data: { message: "Something went wrong!" },
+      success: false,
+    });
+  }
+}
+//getAnswerQuestionsHandler

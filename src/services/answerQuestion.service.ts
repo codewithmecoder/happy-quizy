@@ -11,7 +11,7 @@ export const createAnswers = async (
 };
 
 export const updateAnswers = async (
-  update: Prisma.AnswerQuestionUncheckedUpdateManyInput
+  update: Prisma.AnswerQuestionUncheckedUpdateManyInput[]
 ) => {
   return await prismaClient.answerQuestion.updateMany({ data: update });
 };
@@ -29,3 +29,9 @@ export const getAnswersByType = async (id: number) => {
     where: { questionId: id },
   });
 };
+
+export const getAnswers = async () => {
+  return await prismaClient.answerQuestion.findMany({});
+};
+
+//getAnswers
