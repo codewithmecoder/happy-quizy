@@ -8,6 +8,7 @@ import {
   deleteQuestion,
   getQuestionById,
   getQuestionByType,
+  getQuestions,
   updateQuestion,
 } from "../services/question.service";
 
@@ -91,6 +92,24 @@ export const getQuestionByTypeHandler = async (
   try {
     const { id } = req.params;
     const questions = await getQuestionByType(parseInt(id));
+    res.status(200).send({
+      data: questions,
+      success: true,
+    });
+  } catch (error: any) {
+    res.status(500).send({
+      data: { message: "Something went wrong!" },
+      success: false,
+    });
+  }
+};
+
+export const getQuestionsHandler = async (
+  req: Request,
+  res: Response<BaseResponse<Question[] | MessageResponse>>
+) => {
+  try {
+    const questions = await getQuestions();
     res.status(200).send({
       data: questions,
       success: true,

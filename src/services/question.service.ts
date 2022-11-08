@@ -39,3 +39,9 @@ export const getQuestionByType = async (id: number) => {
     where: { typeQuestionId: id },
   });
 };
+
+export const getQuestions = async () => {
+  return await prismaClient.question.findMany({
+    // include: {},
+  });
+};
