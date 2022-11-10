@@ -1,5 +1,6 @@
 import cors from "cors";
 import express from "express";
+import cookieParser from "cookie-parser";
 import { deserializeUser } from "../middlewares/deserializeUser.middleware";
 import applicationRoute from "../routes/application.route";
 import authRoute from "../routes/auth.route";
@@ -12,10 +13,11 @@ export default function createServer() {
   const app = express();
   app.use(
     cors({
-      origin: process.env.ORIGIN,
+      origin: `http://localhost:${process.env.ORIGIN}`,
       credentials: true,
     })
   );
+  app.use(cookieParser());
   app.use(express.json());
   app.use(deserializeUser);
   app.use("/", applicationRoute);
