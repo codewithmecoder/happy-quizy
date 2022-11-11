@@ -17,6 +17,7 @@ export const getTypeQuestions = async () => {
         },
       },
     },
+    orderBy: { createdAt: "desc" },
   });
 };
 

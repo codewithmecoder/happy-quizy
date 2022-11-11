@@ -1,8 +1,10 @@
 import express, { Request, Response } from "express";
 import {
   loginUserHandler,
+  logoutHandler,
   registerUserHandler,
 } from "../controllers/auth.controller";
+import { requireUser } from "../middlewares/requireUser.middleware";
 
 const router = express.Router();
 /**
@@ -60,4 +62,20 @@ router.post("/register", registerUserHandler);
  *              $ref: '#/components/schemas/MessageResponse'
  */
 router.post("/login", loginUserHandler);
+
+/**
+ * @openapi
+ * '/api/v1/auth/logout':
+ *  post:
+ *     tags:
+ *     - Auth
+ *     responses:
+ *      200:
+ *        description: Success
+ *        content:
+ *          application/json:
+ *            schema:
+ *              $ref: '#/components/schemas/MessageResponse'
+ */
+router.post("/logout", requireUser, logoutHandler);
 export default router;

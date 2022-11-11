@@ -42,7 +42,10 @@ export async function loginUserHandler(
   if (!_user) {
     return res
       .status(401)
-      .send({ success: false, data: { message: "Invalid email or password" } });
+      .send({
+        success: false,
+        data: { message: "Invalid username or password" },
+      });
   }
   const payload = {
     id: _user.id,
@@ -83,3 +86,12 @@ export async function loginUserHandler(
     },
   });
 }
+
+export const logoutHandler = (
+  req: Request,
+  res: Response<BaseResponse<MessageResponse>>
+) => {
+  res.clearCookie("accessToken");
+  res.clearCookie("resfreshToken");
+  res.status(200).send({ data: { message: "User Loged Out!" }, success: true });
+};
