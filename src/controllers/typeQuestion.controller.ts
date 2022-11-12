@@ -1,4 +1,5 @@
 import { Prisma, TypeQuestion } from "@prisma/client";
+import { PrismaClientKnownRequestError } from "@prisma/client/runtime";
 import { Request, Response } from "express";
 import { BaseResponse } from "../DTOS/baseResponse.dto";
 import { MessageResponse } from "../DTOS/messageResponse.dto";
@@ -75,9 +76,20 @@ export const deleteTypeQuestionHandler = async (
       success: true,
     });
   } catch (error: any) {
-    res.status(500).send({
-      data: { message: "something went wrong!" },
-      success: false,
-    });
+    if (error.code === "P2003") {
+      res.status(500).send({
+        data: {
+          message: "Cannot delete. Type question already has the references",
+        },
+        success: false,
+      });
+    } else {
+      res.status(500).send({
+        data: {
+          message: "Something went wrong!",
+        },
+        success: false,
+      });
+    }
   }
 };

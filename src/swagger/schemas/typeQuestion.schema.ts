@@ -58,4 +58,11 @@
  *                updatedAt:
  *                  type: string
  *                  format: date
+ *      UpdateTypeQuestion:
+ *        type: object
+ *        properties:
+ *          type:
+ *            type: string
+ *          photo:
+ *            type: string
  */
