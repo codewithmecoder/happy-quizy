@@ -1,11 +1,11 @@
 import { Prisma, TypeQuestion } from "@prisma/client";
-import { PrismaClientKnownRequestError } from "@prisma/client/runtime";
 import { Request, Response } from "express";
 import { BaseResponse } from "../DTOS/baseResponse.dto";
 import { MessageResponse } from "../DTOS/messageResponse.dto";
 import {
   createTypeQuestion,
   deleteTypeQuestion,
+  getOnlyTypeQuestions,
   getTypeQuestion,
   getTypeQuestions,
   updateTypeQuestion,
@@ -31,7 +31,7 @@ export const getTypeQuestionsHandler = async (
     const data = await getTypeQuestions();
     res.json({ data, success: true });
   } catch (error: any) {
-    res.json({ data: { message: error.message }, success: true });
+    res.json({ data: { message: error.message }, success: false });
   }
 };
 
@@ -47,7 +47,19 @@ export const getTypeQuestionHandler = async (
       .status(404)
       .send({ data: { message: "Type question not found!" }, success: true });
   } catch (error: any) {
-    res.status(500).send({ data: { message: error.message }, success: true });
+    res.status(500).send({ data: { message: error.message }, success: false });
+  }
+};
+
+export const getOnlyTypeQuestionsHandler = async (
+  req: Request,
+  res: Response<BaseResponse<TypeQuestion[] | MessageResponse>>
+) => {
+  try {
+    const data = await getOnlyTypeQuestions();
+    res.json({ data, success: true });
+  } catch (error: any) {
+    res.json({ data: { message: error.message }, success: false });
   }
 };
 

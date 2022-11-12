@@ -21,6 +21,12 @@ export const getTypeQuestions = async () => {
   });
 };
 
+export const getOnlyTypeQuestions = async () => {
+  return await prismaClient.typeQuestion.findMany({
+    orderBy: { createdAt: "desc" },
+  });
+};
+
 export const getTypeQuestion = async (id: number) => {
   return await prismaClient.typeQuestion.findFirst({
     where: { id },

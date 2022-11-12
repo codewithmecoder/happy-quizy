@@ -2,6 +2,7 @@ import express from "express";
 import {
   createTypeQuestionHandler,
   deleteTypeQuestionHandler,
+  getOnlyTypeQuestionsHandler,
   getTypeQuestionHandler,
   getTypeQuestionsHandler,
   updateTypeQuestionHandler,
@@ -115,6 +116,28 @@ router.delete("/:id", requireAdmin, deleteTypeQuestionHandler);
  *              $ref: '#/components/schemas/MessageResponse'
  */
 router.get("/", requireUser, getTypeQuestionsHandler);
+
+/**
+ * @openapi
+ * '/api/v1/typeQuestion/onlyTypeQuestion':
+ *  get:
+ *     tags:
+ *     - Type Question
+ *     responses:
+ *      200:
+ *        description: Success
+ *        content:
+ *          application/json:
+ *            schema:
+ *              $ref: '#/components/schemas/TypeQuestionsResponse'
+ *      400:
+ *        description: Message Error
+ *        content:
+ *          application/json:
+ *            schema:
+ *              $ref: '#/components/schemas/MessageResponse'
+ */
+router.get("/onlyTypeQuestion", requireUser, getOnlyTypeQuestionsHandler);
 
 /**
  * @openapi
