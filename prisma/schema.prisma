@@ -36,6 +36,7 @@ model Question {
 model TypeQuestion {
   id Int @id @default(autoincrement())
   type String
+  photo String?
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
   questions Question[]
