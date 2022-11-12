@@ -1,5 +1,7 @@
 // Start User //
 
+import { Prisma } from "@prisma/client";
+
 /**
  * @openapi
  * components:
@@ -27,6 +29,70 @@
  *                type: number
  *              exp:
  *                type: number
+ *      UpdateUserInput:
+ *        type: object
+ *        properties:
+ *          username:
+ *            type: string
+ *          displayName:
+ *            type: string
+ *          email:
+ *            type: string
+ *          phoneNumber:
+ *            type: string
+ *          photo:
+ *            type: string
+ *          isAdmin:
+ *            type: string
+ *      UpdateAnyUserInput:
+ *        type: object
+ *        properties:
+ *          id:
+ *            type: number
+ *          username:
+ *            type: string
+ *          displayName:
+ *            type: string
+ *          email:
+ *            type: string
+ *          phoneNumber:
+ *            type: string
+ *          photo:
+ *            type: string
+ *          isAdmin:
+ *            type: string
+ *      UsersResponse:
+ *        type: object
+ *        properties:
+ *          success:
+ *            type: boolean
+ *            default: false
+ *          data:
+ *            type: array
+ *            items:
+ *              type: object
+ *              properties:
+ *                id:
+ *                  type: int
+ *                  default: 0,
+ *                username:
+ *                  type: string
+ *                displayName:
+ *                  type: string
+ *                email:
+ *                  type: string
+ *                phoneNumber:
+ *                  type: string
+ *                photo:
+ *                  type: string
+ *                isAdmin:
+ *                  type: boolean
+ *                createdAt:
+ *                  type: string
+ *                  format: date
+ *                updatedAt:
+ *                  type: string
+ *                  format: date
  */
 export type CurrentUserLogin = {
   id: number;
@@ -37,3 +103,16 @@ export type CurrentUserLogin = {
   iat: number;
   exp: number;
 };
+
+export type UpdateUserInputModel = {
+  username: string;
+  displayName: string;
+  email: string;
+  phoneNumber: string;
+  photo: string;
+  isAdmin: boolean;
+};
+
+export type UpdateAnyUserInputModel = {
+  id: number;
+} & UpdateUserInputModel;

@@ -39,7 +39,7 @@ export const updateTypeQuestion = async (
   id: number
 ) => {
   return await prismaClient.typeQuestion.update({
-    data: update,
+    data: { ...update, updatedAt: new Date(Date.now()) },
     where: { id: id },
   });
 };

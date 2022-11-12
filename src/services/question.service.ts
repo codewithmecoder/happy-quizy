@@ -17,7 +17,7 @@ export const updateQuestion = async (
   id: number
 ) => {
   return await prismaClient.question.update({
-    data: update,
+    data: { ...update, updatedAt: new Date(Date.now()) },
     where: { id: id },
   });
 };
