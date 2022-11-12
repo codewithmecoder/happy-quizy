@@ -8,6 +8,8 @@
  *        properties:
  *          type:
  *            type: string
+ *          photo:
+ *            type: string
  *          createdAt:
  *            type: string
  *            format: date
@@ -25,6 +27,8 @@
  *              id:
  *                type: number
  *              type:
+ *                type: string
+ *              photo:
  *                type: string
  *              createdAt:
  *                type: string
@@ -45,6 +49,8 @@
  *                id:
  *                  type: number
  *                type:
+ *                  type: string
+ *                photo:
  *                  type: string
  *                createdAt:
  *                  type: string

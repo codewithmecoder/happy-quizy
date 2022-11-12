@@ -43,7 +43,7 @@ import { Prisma } from "@prisma/client";
  *          photo:
  *            type: string
  *          isAdmin:
- *            type: string
+ *            type: boolean
  *      UpdateAnyUserInput:
  *        type: object
  *        properties:
@@ -60,7 +60,7 @@ import { Prisma } from "@prisma/client";
  *          photo:
  *            type: string
  *          isAdmin:
- *            type: string
+ *            type: boolean
  *      UsersResponse:
  *        type: object
  *        properties:
