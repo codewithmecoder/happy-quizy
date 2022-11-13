@@ -37,11 +37,12 @@ export const getQuestionById = async (id: number) => {
 export const getQuestionByType = async (id: number) => {
   return await prismaClient.question.findMany({
     where: { typeQuestionId: id },
+    include: { typeQuestion: {} },
   });
 };
 
 export const getQuestions = async () => {
   return await prismaClient.question.findMany({
-    // include: {},
+    include: { typeQuestion: {} },
   });
 };
