@@ -36,7 +36,7 @@ router.post("/", requireAdmin, createAnswersHandler);
 
 /**
  * @openapi
- * '/api/v1/asnwerQuestion/createSingalAnswer':
+ * '/api/v1/asnwerQuestion/createSingleAnswer':
  *  post:
  *     tags:
  *     - Answer Question
@@ -58,7 +58,7 @@ router.post("/", requireAdmin, createAnswersHandler);
  *            schema:
  *              $ref: '#/components/schemas/MessageResponse'
  */
-router.post("/createSingalAnswer", requireAdmin, createAnswerHandler);
+router.post("/createSingleAnswer", requireAdmin, createAnswerHandler);
 
 /**
  * @openapi
