@@ -8,7 +8,6 @@ export const requireUser = (
   next: NextFunction
 ) => {
   const user = res.locals.user;
-  console.log(res.locals);
   if (!user) {
     return res.json({
       success: false,

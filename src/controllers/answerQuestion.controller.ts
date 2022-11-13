@@ -3,13 +3,15 @@ import { Request, Response } from "express";
 import { BaseResponse } from "../DTOS/baseResponse.dto";
 import { MessageResponse } from "../DTOS/messageResponse.dto";
 import {
+  createAnswer,
   createAnswers,
   deleteAnswer,
   getAnswerById,
   getAnswers,
-  getAnswersByType,
+  getAnswersByQuestion,
   updateAnswers,
 } from "../services/answerQuestion.service";
+import { CreateAnswerQuestionModel } from "../swagger/schemas/answerQuestion.schema";
 
 export const createAnswersHandler = async (
   req: Request<{}, {}, Prisma.AnswerQuestionCreateManyInput[]>,
@@ -21,6 +23,30 @@ export const createAnswersHandler = async (
   } catch (error: any) {
     res.status(400).send({
       data: { message: "Could not create answers" },
+      success: false,
+    });
+  }
+};
+
+export const createAnswerHandler = async (
+  req: Request<{}, {}, CreateAnswerQuestionModel>,
+  res: Response<BaseResponse<AnswerQuestion | MessageResponse>>
+) => {
+  try {
+    if (req.body.iscorrect) {
+      const answers = await getAnswersByQuestion(req.body.questionId);
+      const rightAnswer = answers.filter((i) => i.iscorrect === true)[0];
+      if (rightAnswer)
+        return res.status(409).send({
+          data: { message: "The answer already existed!" },
+          success: false,
+        });
+    }
+    const answer = await createAnswer(req.body);
+    res.json({ data: answer, success: true });
+  } catch (error: any) {
+    res.status(400).send({
+      data: { message: "Could not create answer" },
       success: false,
     });
   }
@@ -91,7 +117,7 @@ export async function getAnswerQuestionByQuestionHandler(
 ) {
   try {
     const { id } = req.params;
-    const answers = await getAnswersByType(parseInt(id));
+    const answers = await getAnswersByQuestion(parseInt(id));
     res.status(200).send({
       data: answers,
       success: true,

@@ -21,6 +21,23 @@
  *            updatedAt:
  *              type: string
  *              format: date
+ *      CreateSingalAnswerQuestion:
+ *        type: object
+ *        properties:
+ *          answer:
+ *            type: string
+ *          questionId:
+ *            type: number
+ *          typeQuestionId:
+ *            type: number
+ *          iscorrect:
+ *            type: boolean
+ *          createdAt:
+ *            type: string
+ *            format: date
+ *          updatedAt:
+ *            type: string
+ *            format: date
  *      UpdateAnswerQuestion:
  *        type: array
  *        items:
@@ -93,3 +110,9 @@
  *                  type: string
  *                  format: date
  */
+
+import { Prisma } from "@prisma/client";
+
+export type CreateAnswerQuestionModel = {
+  questionId: number;
+} & Prisma.AnswerQuestionCreateInput;

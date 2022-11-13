@@ -10,6 +10,12 @@ export const createAnswers = async (
   });
 };
 
+export const createAnswer = async (input: Prisma.AnswerQuestionCreateInput) => {
+  return await prismaClient.answerQuestion.create({
+    data: input,
+  });
+};
+
 export const updateAnswers = async (
   update: Prisma.AnswerQuestionUncheckedUpdateManyInput[]
 ) => {
@@ -24,7 +30,8 @@ export const getAnswerById = async (id: number) => {
   return await prismaClient.answerQuestion.findFirst({ where: { id } });
 };
 
-export const getAnswersByType = async (id: number) => {
+export const getAnswersByQuestion = async (id: number) => {
+  console.log("id => ", id);
   return await prismaClient.answerQuestion.findMany({
     where: { questionId: id },
   });

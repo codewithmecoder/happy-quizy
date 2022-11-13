@@ -1,5 +1,6 @@
 import express from "express";
 import {
+  createAnswerHandler,
   createAnswersHandler,
   deleteAnswerHandler,
   getAnswerQuestionByIdHandler,
@@ -32,6 +33,32 @@ const router = express.Router();
  *              $ref: '#/components/schemas/MessageResponse'
  */
 router.post("/", requireAdmin, createAnswersHandler);
+
+/**
+ * @openapi
+ * '/api/v1/asnwerQuestion/createSingalAnswer':
+ *  post:
+ *     tags:
+ *     - Answer Question
+ *     requestBody:
+ *      required: true
+ *      content:
+ *        application/json:
+ *           schema:
+ *              $ref: '#/components/schemas/CreateSingalAnswerQuestion'
+ *     responses:
+ *      200:
+ *        content:
+ *          application/json:
+ *            schema:
+ *              $ref: '#/components/schemas/AnswerQuestionResponse'
+ *      400:
+ *        content:
+ *          application/json:
+ *            schema:
+ *              $ref: '#/components/schemas/MessageResponse'
+ */
+router.post("/createSingalAnswer", requireAdmin, createAnswerHandler);
 
 /**
  * @openapi
