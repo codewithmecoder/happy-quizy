@@ -55,10 +55,24 @@ export const deleteQuestionHandler = async (
       success: true,
     });
   } catch (error: any) {
-    res.status(500).send({
-      data: { message: "Could not delete question" },
-      success: false,
-    });
+    if (error.code === "P2003") {
+      return res.status(400).send({
+        data: {
+          message: "Question already have the answers. You can't delete it.",
+        },
+        success: false,
+      });
+    } else if (error.code === "P2025") {
+      return res.status(400).send({
+        success: false,
+        data: { message: "Record to delete does not exist." },
+      });
+    } else {
+      return res.status(500).send({
+        data: { message: "Could not delete question" },
+        success: false,
+      });
+    }
   }
 };
 
