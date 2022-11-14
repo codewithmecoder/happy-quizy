@@ -59,6 +59,25 @@
  *            updatedAt:
  *              type: string
  *              format: date
+ *      UpdateSingleAnswerQuestion:
+ *        type: object
+ *        properties:
+ *          id:
+ *            type: number
+ *          answer:
+ *            type: string
+ *          questionId:
+ *            type: number
+ *          typeQuestionId:
+ *            type: number
+ *          iscorrect:
+ *            type: boolean
+ *          createdAt:
+ *            type: string
+ *            format: date
+ *          updatedAt:
+ *            type: string
+ *            format: date
  *      AnswerQuestionResponse:
  *        type: object
  *        properties:

@@ -22,6 +22,16 @@ export const updateAnswers = async (
   return await prismaClient.answerQuestion.updateMany({ data: update });
 };
 
+export const updateAnswer = async (
+  update: Prisma.AnswerQuestionUncheckedUpdateManyInput
+) => {
+  const id: number = parseInt(update.id?.toString() ?? "0");
+  return await prismaClient.answerQuestion.update({
+    where: { id },
+    data: update,
+  });
+};
+
 export const deleteAnswer = async (id: number) => {
   return await prismaClient.answerQuestion.delete({ where: { id } });
 };

@@ -6,6 +6,7 @@ import {
   getAnswerQuestionByIdHandler,
   getAnswerQuestionByQuestionHandler,
   getAnswerQuestionsHandler,
+  updateAnswerHandler,
   updateAnswersHandler,
 } from "../controllers/answerQuestion.controller";
 import { requireAdmin } from "../middlewares/requireAdmin.middleware";
@@ -81,6 +82,31 @@ router.post("/createSingleAnswer", requireAdmin, createAnswerHandler);
  */
 router.put("/", requireAdmin, updateAnswersHandler);
 
+/**
+ * @openapi
+ * '/api/v1/asnwerQuestion/updateSingleAnswer':
+ *  put:
+ *     tags:
+ *     - Answer Question
+ *     requestBody:
+ *      required: true
+ *      content:
+ *        application/json:
+ *           schema:
+ *              $ref: '#/components/schemas/UpdateSingleAnswerQuestion'
+ *     responses:
+ *      200:
+ *        content:
+ *          application/json:
+ *            schema:
+ *              $ref: '#/components/schemas/AnswerQuestionResponse'
+ *      400:
+ *        content:
+ *          application/json:
+ *            schema:
+ *              $ref: '#/components/schemas/MessageResponse'
+ */
+router.put("/updateSingleAnswer", requireAdmin, updateAnswerHandler);
 /**
  * @openapi
  * '/api/v1/asnwerQuestion/{id}':

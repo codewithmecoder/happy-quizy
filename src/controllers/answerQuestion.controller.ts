@@ -9,6 +9,7 @@ import {
   getAnswerById,
   getAnswers,
   getAnswersByQuestion,
+  updateAnswer,
   updateAnswers,
 } from "../services/answerQuestion.service";
 import { CreateAnswerQuestionModel } from "../swagger/schemas/answerQuestion.schema";
@@ -57,10 +58,10 @@ export const updateAnswersHandler = async (
   res: Response<BaseResponse<MessageResponse>>
 ) => {
   try {
-    const question = await updateAnswers(req.body);
+    const answerBatch = await updateAnswers(req.body);
     res
       .status(200)
-      .send({ data: { message: question.count.toString() }, success: true });
+      .send({ data: { message: answerBatch.count.toString() }, success: true });
   } catch (error: any) {
     res.status(500).send({
       data: { message: "Could not update answers" },
@@ -68,7 +69,20 @@ export const updateAnswersHandler = async (
     });
   }
 };
-
+export const updateAnswerHandler = async (
+  req: Request<{}, {}, Prisma.AnswerQuestionUncheckedUpdateManyInput>,
+  res: Response<BaseResponse<AnswerQuestion | MessageResponse>>
+) => {
+  try {
+    const answer = await updateAnswer(req.body);
+    res.status(200).send({ data: answer, success: true });
+  } catch (error: any) {
+    res.status(500).send({
+      data: { message: "Could not update answers" },
+      success: false,
+    });
+  }
+};
 export const deleteAnswerHandler = async (
   req: Request,
   res: Response<BaseResponse<MessageResponse>>
