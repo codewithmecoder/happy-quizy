@@ -41,7 +41,6 @@ export const getAnswerById = async (id: number) => {
 };
 
 export const getAnswersByQuestion = async (id: number) => {
-  console.log("id => ", id);
   return await prismaClient.answerQuestion.findMany({
     where: { questionId: id },
   });

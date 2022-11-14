@@ -44,7 +44,6 @@ export const updateTypeQuestion = async (
   update: Prisma.TypeQuestionUpdateInput,
   id: number
 ) => {
-  console.log(id, update);
   return await prismaClient.typeQuestion.update({
     data: { ...update, updatedAt: new Date(Date.now()) },
     where: { id: id },
