@@ -11,10 +11,10 @@ import { MessageResponse } from "../DTOS/messageResponse.dto";
 const accessTokenCookieOptions: CookieOptions = {
   maxAge: 900000, //15 mins
   httpOnly: true,
-  domain: "localhost",
+  domain: "203.189.135.161",
   path: "/",
   sameSite: "none",
-  secure: true,
+  secure: false,
 };
 const refreshTokenCookieOptions: CookieOptions = {
   ...accessTokenCookieOptions,
