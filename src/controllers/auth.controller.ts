@@ -13,8 +13,8 @@ const accessTokenCookieOptions: CookieOptions = {
   httpOnly: true,
   domain: "localhost",
   path: "/",
-  sameSite: "lax",
-  secure: false,
+  sameSite: "none",
+  secure: true,
 };
 const refreshTokenCookieOptions: CookieOptions = {
   ...accessTokenCookieOptions,
@@ -40,12 +40,10 @@ export async function loginUserHandler(
   const { password, username } = req.body;
   const _user = await loginUser(username, password);
   if (!_user) {
-    return res
-      .status(401)
-      .send({
-        success: false,
-        data: { message: "Invalid username or password" },
-      });
+    return res.status(401).send({
+      success: false,
+      data: { message: "Invalid username or password" },
+    });
   }
   const payload = {
     id: _user.id,
