@@ -13,9 +13,9 @@
     "docker:down:test": "docker-compose -f ./docker-compose-develop.yml down",
     "test": "yarn docker:up:test && yarn prisma migrate deploy && jest --passWithNoTests",
     "dev": "ts-node-dev --respawn --transpile-only --exit-child --watch src src/app.ts",
-    "prod": "tsc && node build/src/app.js",
+    "prod": "node build/src/app.js",
     "build": "tsc",
-    "start": "node build/src/app.js",
+    "start": "tsc && node build/src/app.js",
     "seeding": "ts-node-dev --respawn --transpileOnly prisma/seed.ts",
     "prisma:migrate": "prisma migrate dev --name",
     "prisma:generate": "prisma generate"
