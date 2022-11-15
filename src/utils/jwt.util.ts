@@ -1,7 +1,8 @@
 import jwt from "jsonwebtoken";
+import { SecurityKey } from "./security";
 
-const privateKey = process.env.PRIVATEKEY ?? "privateKey";
-const publicKey = process.env.PUBLICKEY ?? "publicKey";
+const privateKey = SecurityKey.PRIVATEKEY ?? "privateKey";
+const publicKey = SecurityKey.PUBLICKEY ?? "publicKey";
 export function signJwt(object: Object, option?: jwt.SignOptions | undefined) {
   return jwt.sign(object, privateKey, {
     ...(option && option),
