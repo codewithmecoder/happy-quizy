@@ -1,0 +1,9 @@
+version: "3.5"
+services:
+  happy-quizy:
+    build: .
+    container_name: ${CONTAINER_NAME}
+    image: ${IMAGE_NAME}
+    ports:
+      - "1333:1333"
+    restart: always

@@ -3,7 +3,7 @@ dotenv.config();
 import createServer from "./utils/server";
 import logger from "./utils/logger";
 import swaggerDocs from "./utils/swagger";
-const port = process.env.PORT || "4000";
+const port = process.env.PORT || "1333";
 const app = createServer();
 app.listen(port, async () => {
   logger.info(`App running on http://localhost:${port}`);
