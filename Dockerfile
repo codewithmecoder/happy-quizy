@@ -13,4 +13,5 @@ COPY . .
 RUN yarn build
 
 EXPOSE 1333
+ENV PORT=1333 
 CMD [ "yarn", "start" ]
