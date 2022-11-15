@@ -1,0 +1,11 @@
+import { Question } from "@prisma/client";
+import { Request, Response } from "express";
+import { BaseResponse } from "../DTOS/baseResponse.dto";
+import { MessageResponse } from "../DTOS/messageResponse.dto";
+import { CreateQuestion } from "../DTOS/quizs/createQuizCommand";
+export declare const createQuestionHandler: (req: Request<{}, {}, CreateQuestion>, res: Response<BaseResponse<Question | MessageResponse>>) => Promise<void>;
+export declare const updateQuestionHandler: (req: Request, res: Response<BaseResponse<Question | MessageResponse>>) => Promise<void>;
+export declare const deleteQuestionHandler: (req: Request, res: Response<BaseResponse<MessageResponse>>) => Promise<Response<BaseResponse<MessageResponse>, Record<string, any>> | undefined>;
+export declare const getQuestionByIdHandler: (req: Request, res: Response<BaseResponse<Question | MessageResponse>>) => Promise<void>;
+export declare const getQuestionByTypeHandler: (req: Request, res: Response<BaseResponse<Question[] | MessageResponse>>) => Promise<void>;
+export declare const getQuestionsHandler: (req: Request, res: Response<BaseResponse<Question[] | MessageResponse>>) => Promise<void>;

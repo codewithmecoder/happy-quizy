@@ -1,0 +1,13 @@
+import { AnswerQuestion, Prisma } from "@prisma/client";
+import { Request, Response } from "express";
+import { BaseResponse } from "../DTOS/baseResponse.dto";
+import { MessageResponse } from "../DTOS/messageResponse.dto";
+import { CreateAnswerQuestionModel } from "../swagger/schemas/answerQuestion.schema";
+export declare const createAnswersHandler: (req: Request<{}, {}, Prisma.AnswerQuestionCreateManyInput[]>, res: Response<BaseResponse<MessageResponse>>) => Promise<void>;
+export declare const createAnswerHandler: (req: Request<{}, {}, CreateAnswerQuestionModel>, res: Response<BaseResponse<AnswerQuestion | MessageResponse>>) => Promise<Response<BaseResponse<MessageResponse | AnswerQuestion>, Record<string, any>> | undefined>;
+export declare const updateAnswersHandler: (req: Request<{}, {}, Prisma.AnswerQuestionUncheckedUpdateManyInput[]>, res: Response<BaseResponse<MessageResponse>>) => Promise<void>;
+export declare const updateAnswerHandler: (req: Request<{}, {}, Prisma.AnswerQuestionUncheckedUpdateManyInput>, res: Response<BaseResponse<AnswerQuestion | MessageResponse>>) => Promise<void>;
+export declare const deleteAnswerHandler: (req: Request, res: Response<BaseResponse<MessageResponse>>) => Promise<void>;
+export declare const getAnswerQuestionByIdHandler: (req: Request, res: Response<BaseResponse<AnswerQuestion | MessageResponse>>) => Promise<void>;
+export declare function getAnswerQuestionByQuestionHandler(req: Request, res: Response<BaseResponse<AnswerQuestion[] | MessageResponse>>): Promise<void>;
+export declare function getAnswerQuestionsHandler(req: Request, res: Response<BaseResponse<AnswerQuestion[] | MessageResponse>>): Promise<void>;
