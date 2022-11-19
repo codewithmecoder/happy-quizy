@@ -2,7 +2,6 @@ import { Express, Request, Response } from "express";
 import swaggerJsdoc from "swagger-jsdoc";
 import swaggerUi from "swagger-ui-express";
 import { version } from "../../package.json";
-import log from "./logger";
 
 const options: swaggerJsdoc.Options = {
   definition: {
@@ -58,7 +57,7 @@ function swaggerDocs(app: Express, port: string) {
     res.send(swaggerSpec);
   });
 
-  log.info(`Docs available at http://localhost:${port}/docs`);
+  console.log(`Docs available at http://localhost:${port}/docs`);
 }
 
 export default swaggerDocs;
