@@ -16,10 +16,10 @@ const user_ex_1 = require("../extensions/user.ex");
 const accessTokenCookieOptions = {
     maxAge: 900000,
     httpOnly: true,
-    domain: "203.189.135.161",
+    // domain: "localhost",
     path: "/",
-    sameSite: "none",
-    secure: false,
+    sameSite: "lax",
+    secure: true,
 };
 const refreshTokenCookieOptions = Object.assign(Object.assign({}, accessTokenCookieOptions), { maxAge: 3.154e10 });
 function registerUserHandler(req, res) {
