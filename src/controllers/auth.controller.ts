@@ -11,7 +11,7 @@ import { MessageResponse } from "../DTOS/messageResponse.dto";
 const accessTokenCookieOptions: CookieOptions = {
   maxAge: 900000, //15 mins
   httpOnly: true,
-  domain: "localhost",
+  domain: "https://happy-quizy-admin-web.vercel.app",
   path: "/",
   sameSite: "none",
   secure: true,
