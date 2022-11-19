@@ -11,9 +11,9 @@ import { MessageResponse } from "../DTOS/messageResponse.dto";
 const accessTokenCookieOptions: CookieOptions = {
   maxAge: 900000, //15 mins
   httpOnly: true,
-  // domain: "localhost",
+  domain: "localhost",
   path: "/",
-  sameSite: "lax",
+  sameSite: "none",
   secure: true,
 };
 const refreshTokenCookieOptions: CookieOptions = {
