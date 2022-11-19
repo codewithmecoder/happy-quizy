@@ -1,6 +1,5 @@
 import { NextFunction, Request, Response } from "express";
 import { BaseResponse } from "../DTOS/baseResponse.dto";
-import log from "../utils/logger";
 
 export const requireUser = (
   req: Request,
