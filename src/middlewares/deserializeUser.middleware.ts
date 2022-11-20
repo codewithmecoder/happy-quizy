@@ -11,16 +11,15 @@ export const deserializeUser = async (
     get(req, "cookies.accessToken") ||
     get(req, "headers.authorization", "").replace(/^Bearer\s/, "");
   const refreshToken =
-    get(req, "cookies.resfreshToken") || get(req, "headers.x-refresh");
+    get(req, "cookies.refreshToken") || get(req, "headers.x-refresh");
 
   if (accessToken) {
     const { decoded, expired } = verifyJwt(accessToken);
-    if (expired && decoded) {
+    if (!expired && decoded) {
       res.locals.user = decoded;
       return next();
     }
   }
-
   const { expired } = verifyJwt(refreshToken);
   if (!expired && refreshToken) {
     const newAccessToken = await reIssueAccessToken({ refreshToken });
@@ -30,10 +29,9 @@ export const deserializeUser = async (
       res.cookie("accessToken", newAccessToken, {
         maxAge: 900000, //15 mins
         httpOnly: true,
-        domain: "localhost",
         path: "/",
         sameSite: "strict",
-        secure: false,
+        secure: process.env.NODE_ENV !== "development",
       });
     }
     const result = verifyJwt(newAccessToken as string);

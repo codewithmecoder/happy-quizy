@@ -62,8 +62,8 @@ export async function loginUserHandler(
   });
 
   // return access & refresh token
-  res.cookie("accessToken", accessToken, accessTokenCookieOptions);
-  res.cookie("resfreshToken", refreshToken, refreshTokenCookieOptions);
+  // res.cookie("accessToken", accessToken, accessTokenCookieOptions);
+  // res.cookie("resfreshToken", refreshToken, refreshTokenCookieOptions);
   const userPaylaod = {
     createdAt: _user.createdAt,
     displayName: _user.displayName,

@@ -90,7 +90,7 @@
  *                  type: string
  *                  format: date
  */
-export declare type CurrentUserLogin = {
+export type CurrentUserLogin = {
     id: number;
     displayName: string;
     username: string;
@@ -99,7 +99,7 @@ export declare type CurrentUserLogin = {
     iat: number;
     exp: number;
 };
-export declare type UpdateUserInputModel = {
+export type UpdateUserInputModel = {
     username: string;
     displayName: string;
     email: string;
@@ -107,6 +107,6 @@ export declare type UpdateUserInputModel = {
     photo: string;
     isAdmin: boolean;
 };
-export declare type UpdateAnyUserInputModel = {
+export type UpdateAnyUserInputModel = {
     id: number;
 } & UpdateUserInputModel;

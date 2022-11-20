@@ -1,4 +1,3 @@
-import cors from "cors";
 import express from "express";
 import cookieParser from "cookie-parser";
 import { deserializeUser } from "../middlewares/deserializeUser.middleware";
@@ -8,12 +7,23 @@ import userRoute from "../routes/user.route";
 import typeQuestion from "../routes/typeQuestion.route";
 import question from "../routes/question.route";
 import answerQuestion from "../routes/answerQuestion.route";
+import cors from "cors";
 
 export default function createServer() {
   const app = express();
+  const whitelists: string[] = process.env.ORIGIN
+    ? process.env.ORIGIN.split(",")
+    : [""];
   app.use(
     cors({
-      origin: process.env.ORIGIN,
+      origin: (origin, callback) => {
+        console.log(origin);
+        if (whitelists.indexOf(origin!) !== -1 || !origin) {
+          callback(null, origin);
+        } else {
+          callback(new Error("Origin not allowed"));
+        }
+      },
       credentials: true,
     })
   );

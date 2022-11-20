@@ -16,9 +16,9 @@ const user_ex_1 = require("../extensions/user.ex");
 const accessTokenCookieOptions = {
     maxAge: 900000,
     httpOnly: true,
-    // domain: "localhost",
+    domain: "localhost",
     path: "/",
-    sameSite: "lax",
+    sameSite: "none",
     secure: true,
 };
 const refreshTokenCookieOptions = Object.assign(Object.assign({}, accessTokenCookieOptions), { maxAge: 3.154e10 });
