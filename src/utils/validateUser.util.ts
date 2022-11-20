@@ -4,7 +4,7 @@ import { reIssueAccessToken } from "../services/auth.service";
 import { verifyJwt } from "./jwt.util";
 
 export const validateUser = async (req: Request, res: Response) => {
-  console.log(req);
+  console.log("req.headers =>", req.headers);
   const accessToken =
     get(req, "headers.authorization", "").replace(/^Bearer\s/, "") ||
     get(req, "cookies.accessToken");
