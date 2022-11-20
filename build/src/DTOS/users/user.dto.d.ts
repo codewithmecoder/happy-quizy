@@ -10,7 +10,7 @@ export interface UserDto {
     createdAt: Date;
     updatedAt: Date;
 }
-export declare type LoginReturn = {
+export type LoginReturn = {
     user: UserDto;
     accessToken: string;
     refreshToken: string;

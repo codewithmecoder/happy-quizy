@@ -130,6 +130,6 @@
  *                  format: date
  */
 import { Prisma } from "@prisma/client";
-export declare type CreateAnswerQuestionModel = {
+export type CreateAnswerQuestionModel = {
     questionId: number;
 } & Prisma.AnswerQuestionCreateInput;
