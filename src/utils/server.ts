@@ -17,7 +17,6 @@ export default function createServer() {
   app.use(
     cors({
       origin: (origin, callback) => {
-        console.log(origin);
         if (whitelists.indexOf(origin!) !== -1 || !origin) {
           callback(null, origin);
         } else {

@@ -12,7 +12,7 @@ export const deserializeUser = async (
     get(req, "headers.authorization", "").replace(/^Bearer\s/, "");
   const refreshToken =
     get(req, "cookies.refreshToken") || get(req, "headers.x-refresh");
-
+  console.log("refreshToken =>", refreshToken);
   if (accessToken) {
     const { decoded, expired } = verifyJwt(accessToken);
     if (!expired && decoded) {
