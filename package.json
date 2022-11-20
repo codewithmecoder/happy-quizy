@@ -15,7 +15,7 @@
     "dev": "ts-node-dev --respawn --transpile-only --exit-child --watch src src/app.ts",
     "prod": "node build/src/app.js",
     "build": "tsc",
-    "start": "tsc && node build/src/app.js",
+    "start": "node build/src/app.js",
     "seeding": "ts-node-dev --respawn --transpileOnly prisma/seed.ts",
     "prisma:migrate": "prisma migrate dev --name",
     "prisma:generate": "prisma generate"
