@@ -6,6 +6,10 @@
   "repository": "https://github.com/codewithmecoder/happy-quizy.git",
   "author": "Sokcheanith(codewithmecoder)",
   "license": "MIT",
+  "engines": {
+    "node": ">=18.0.0",
+    "yarn": ">=1.22.0"
+  },
   "scripts": {
     "docker:up": "docker-compose up -d --remove-orphans",
     "docker:down": "docker-compose down",

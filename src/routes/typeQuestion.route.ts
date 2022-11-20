@@ -7,6 +7,7 @@ import {
   getTypeQuestionsHandler,
   updateTypeQuestionHandler,
 } from "../controllers/typeQuestion.controller";
+import { deserializeUser } from "../middlewares/deserializeUser.middleware";
 import { requireAdmin } from "../middlewares/requireAdmin.middleware";
 import { requireUser } from "../middlewares/requireUser.middleware";
 
@@ -38,7 +39,7 @@ const router = express.Router();
  *            schema:
  *              $ref: '#/components/schemas/MessageResponse'
  */
-router.post("/", requireAdmin, createTypeQuestionHandler);
+router.post("/", deserializeUser, requireAdmin, createTypeQuestionHandler);
 
 /**
  * @openapi
