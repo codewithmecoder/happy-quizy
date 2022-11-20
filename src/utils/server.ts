@@ -11,18 +11,9 @@ import cors from "cors";
 
 export default function createServer() {
   const app = express();
-  const whitelists: string[] = process.env.ORIGIN
-    ? process.env.ORIGIN.split(",")
-    : [""];
   app.use(
     cors({
-      origin: (origin, callback) => {
-        if (whitelists.indexOf(origin!) !== -1 || !origin) {
-          callback(null, origin);
-        } else {
-          callback(new Error("Origin not allowed"));
-        }
-      },
+      origin: process.env.ORIGIN,
       credentials: true,
     })
   );
