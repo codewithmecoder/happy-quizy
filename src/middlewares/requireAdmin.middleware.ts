@@ -8,7 +8,7 @@ export const requireAdmin = (
   next: NextFunction
 ) => {
   const user: any = validateUser(req, res);
-  console.log("admin res => ", res.locals);
+  console.log("admin res => ", user);
   if (!user || !user.isAdmin) {
     return res.json({
       success: false,
