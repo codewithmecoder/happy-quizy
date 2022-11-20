@@ -1,13 +1,14 @@
 import { NextFunction, Request, Response } from "express";
 import { BaseResponse } from "../DTOS/baseResponse.dto";
+import { validateUser } from "../utils/validateUser.util";
 
 export const requireAdmin = (
   req: Request,
   res: Response<BaseResponse<{ message: string }>>,
   next: NextFunction
 ) => {
-  const user = res.locals.user;
-  console.log("admin res.locals => ", res.locals);
+  const user: any = validateUser(req, res);
+  console.log("admin res => ", res.locals);
   if (!user || !user.isAdmin) {
     return res.json({
       success: false,
