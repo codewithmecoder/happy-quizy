@@ -7,6 +7,7 @@ export const requireAdmin = (
   next: NextFunction
 ) => {
   const user = res.locals.user;
+  console.log(user);
   if (!user || !user.isAdmin) {
     return res.json({
       success: false,
