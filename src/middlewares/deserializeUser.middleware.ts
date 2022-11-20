@@ -8,11 +8,12 @@ export const deserializeUser = async (
   next: NextFunction
 ) => {
   const accessToken =
-    get(req, "cookies.accessToken") ||
-    get(req, "headers.authorization", "").replace(/^Bearer\s/, "");
+    get(req, "headers.authorization", "").replace(/^Bearer\s/, "") ||
+    get(req, "cookies.accessToken");
   const refreshToken =
-    get(req, "cookies.refreshToken") || get(req, "headers.x-refresh");
-  console.log("refreshToken =>", req.cookies);
+    get(req, "headers.x-refresh") || get(req, "cookies.refreshToken");
+  console.log("refreshToken =>", req.headers["x-refresh"]);
+  console.log("accessToken =>", req.headers["authorization"]);
   if (accessToken) {
     const { decoded, expired } = verifyJwt(accessToken);
     if (!expired && decoded) {
