@@ -50,6 +50,7 @@ export async function loginUserHandler(
     displayName: _user.displayName,
     username: _user.username,
     photo: _user.photo,
+    isAdmin: _user.isAdmin,
   };
   // create an access token
   const accessToken = signJwt(payload, {
