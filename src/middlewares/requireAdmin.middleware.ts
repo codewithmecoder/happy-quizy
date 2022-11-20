@@ -7,8 +7,10 @@ export const requireAdmin = async (
   res: Response<BaseResponse<{ message: string }>>,
   next: NextFunction
 ) => {
-  const user: any = await validateUser(req, res);
-  console.log("admin res => ", user);
+  // const user: any = await validateUser(req, res);
+  // console.log("admin res => ", user);
+  const user = res.locals.user;
+  console.log("user admin", user);
   if (!user || !user.isAdmin) {
     return res.json({
       success: false,
