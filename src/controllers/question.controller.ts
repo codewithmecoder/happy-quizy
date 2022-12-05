@@ -90,7 +90,7 @@ export const getQuestionByIdHandler = async (
       });
     res
       .status(404)
-      .send({ data: { message: "Question not found!" }, success: true });
+      .send({ data: { message: "Question not found!" }, success: false });
   } catch (error: any) {
     res.status(500).send({
       data: { message: "Something went wrong!" },
