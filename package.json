@@ -22,7 +22,8 @@
     "start": "node build/src/app.js",
     "seeding": "ts-node-dev --respawn --transpileOnly prisma/seed.ts",
     "prisma:migrate": "prisma migrate dev --name",
-    "prisma:generate": "prisma generate"
+    "prisma:generate": "prisma generate",
+    "postinstall": "yarn prisma:generate"
   },
   "devDependencies": {
     "@types/bcrypt": "^5.0.0",
