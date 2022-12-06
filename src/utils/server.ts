@@ -7,6 +7,7 @@ import userRoute from "../routes/user.route";
 import typeQuestion from "../routes/typeQuestion.route";
 import question from "../routes/question.route";
 import answerQuestion from "../routes/answerQuestion.route";
+import score from "../routes/score.route";
 import cors from "cors";
 
 export default function createServer() {
@@ -35,5 +36,6 @@ export default function createServer() {
   app.use("/api/v1/typeQuestion", typeQuestion);
   app.use("/api/v1/question", question);
   app.use("/api/v1/asnwerQuestion", answerQuestion);
+  app.use("/api/v1/score", score);
   return app;
 }
